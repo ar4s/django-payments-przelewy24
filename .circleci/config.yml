@@ -15,9 +15,9 @@ jobs:
           command: tox
           name: Test
 
+
 workflows:
   main:
     jobs:
       - build-and-test:
-          context:
-            - p24
+          context: p24
