@@ -104,8 +104,8 @@ def payment(db) -> BasePayment:
 @pytest.fixture
 def correct_process_data(config: Przelewy24Config, payment: BasePayment):
     common = {
-        "merchantId": 104748,
-        "posId": 104748,
+        "merchantId": 4748,
+        "posId": 4748,
         "sessionId": str(payment.pk),
         "amount": 12024,
         "originAmount": 12024,
