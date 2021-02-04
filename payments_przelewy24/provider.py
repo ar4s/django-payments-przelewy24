@@ -16,8 +16,6 @@ from payments_przelewy24.forms import ProcessForm
 from .api import Przelewy24API, Przelewy24Config
 
 CENTS = Decimal("0.01")
-__version__ = "0.1.0"
-
 
 logger = logging.getLogger(__name__)
 
