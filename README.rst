@@ -5,11 +5,6 @@ django-payments-przelewy24
 .. image:: https://badge.fury.io/py/django-payments-przelewy24.svg
     :target: https://badge.fury.io/py/django-payments-przelewy24
 
-.. image:: https://travis-ci.org/ar4s/django-payments-przelewy24.svg?branch=master
-    :target: https://travis-ci.org/ar4s/django-payments-przelewy24
-
-.. image:: https://codecov.io/gh/ar4s/django-payments-przelewy24/branch/master/graph/badge.svg
-    :target: https://codecov.io/gh/ar4s/django-payments-przelewy24
 
 Your project description goes here
 

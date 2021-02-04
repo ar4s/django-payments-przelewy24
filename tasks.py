@@ -44,19 +44,6 @@ def coverage(c):
 
 
 @task
-def docs(c):
-    """
-    Build the documentation and open it in the browser
-    """
-    c.run("rm -f docs/django-payments-przelewy24.rst")
-    c.run("rm -f docs/modules.rst")
-    c.run("sphinx-apidoc -o docs/ payments_przelewy24")
-
-    c.run("sphinx-build -E -b html docs docs/_build")
-    open_browser(path='docs/_build/html/index.html')
-
-
-@task
 def test_all(c):
     """
     Run tests on every python version with tox
@@ -89,21 +76,26 @@ def lint(c):
     c.run("flake8 django-payments-przelewy24 tests")
 
 
-@task(help={'bumpsize': 'Bump either for a "feature" or "breaking" change'})
-def release(c, bumpsize=''):
+@task(help={"bumpsize": 'Bump either for a "feature" or "breaking" change'})
+def release(c, bumpsize=""):
     """
     Package and upload a release
     """
     clean(c)
     if bumpsize:
-        bumpsize = '--' + bumpsize
+        bumpsize = "--" + bumpsize
 
     c.run("bumpversion {bump} --no-input".format(bump=bumpsize))
 
     import payments_przelewy24
+
     c.run("python setup.py sdist bdist_wheel")
     c.run("twine upload dist/*")
 
-    c.run('git tag -a {version} -m "New version: {version}"'.format(version=payments_przelewy24.__version__))
+    c.run(
+        'git tag -a {version} -m "New version: {version}"'.format(
+            version=payments_przelewy24.__version__
+        )
+    )
     c.run("git push --tags")
     c.run("git push origin master")
