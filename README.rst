@@ -22,6 +22,8 @@ Install django-payments-przelewy24::
 Add it to your `INSTALLED_APPS`:
 
 .. code-block:: python
+    
+    from payments_przelewy24.config import Przelewy24Config
 
     PAYMENT_VARIANTS = {
         "przelewy24": (
@@ -41,7 +43,9 @@ Add it to your `INSTALLED_APPS`:
 You can also use environment to configure provider:
 
 .. code-block:: python
-
+    
+    from payments_przelewy24.config import Przelewy24Config
+    
     # PAYMENTS_P24_POS_ID=123
     # PAYMENTS_P24_MERCHANT_ID=123
     # PAYMENTS_P24_CRC=e34a1
