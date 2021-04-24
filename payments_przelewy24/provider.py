@@ -26,7 +26,7 @@ def _create_transaction_from_payment(payment: BasePayment):
         amount=int(payment.total / CENTS),
         currency=payment.currency,
         description=payment.description,
-        email="arkadiusz.adamski@gmail.com",  # TODO
+        email=payment.billing_email,
         country=payment.billing_country_code,
         language="pl",  # TODO,
     )
@@ -77,9 +77,6 @@ class Przelewy24Provider(BasicProvider):
             else:
                 return HttpResponseForbidden("Failed")
         except Exception as e:
-            print(e)
+            logger.error(str(e))
             return HttpResponseForbidden("Failed")
         return HttpResponse("OK")
-
-    def get_token_from_request(self, request, payment):
-        print(request.POST)
