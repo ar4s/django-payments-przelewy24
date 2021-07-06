@@ -53,7 +53,6 @@ class ProcessForm(forms.Form):
 
     def save(self, *args, **kwargs):
         self.payment.transaction_id = self.cleaned_data["statement"]
-        print("amount", self.payment.captured_amount, self.cleaned_data["amount"])
         self.payment.captured_amount = (
             self.payment.captured_amount + Decimal(self.cleaned_data["amount"]) / 100
         )

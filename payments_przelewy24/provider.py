@@ -5,6 +5,7 @@ from decimal import Decimal
 import requests
 from django.core.exceptions import ImproperlyConfigured
 from django.http import HttpResponse, HttpResponseForbidden
+from django.http.response import HttpResponseBadRequest
 from payments import PaymentStatus
 from payments.core import BasicProvider
 from payments.forms import PaymentForm
@@ -48,12 +49,17 @@ class Przelewy24Provider(BasicProvider):
             raise ImproperlyConfigured("Przelewy24 does not support pre-authorization.")
 
     def get_action(self, payment):
-        print(self.get_return_url(payment))
-        return self._api.register(
+        url = self._api.register(
             transaction=_create_transaction_from_payment(payment),
             success_url=payment.get_success_url(),
             status_url=self.get_return_url(payment),
         )
+        logger.debug(f"Transaction registered: url={url}")
+        return url
+
+    def get_form(self, payment, data=None):
+        form = super().get_form(payment, data)
+        return form
 
     def get_hidden_fields(self, payment):
         return {}
@@ -75,8 +81,9 @@ class Przelewy24Provider(BasicProvider):
                 form.save()
                 payment.change_status(PaymentStatus.CONFIRMED)
             else:
-                return HttpResponseForbidden("Failed")
+                logger.error("\n".join(*form.errors.values()))
+                return HttpResponseBadRequest("Failed - incorrect data")
         except Exception as e:
             logger.error(str(e))
-            return HttpResponseForbidden("Failed")
+            return HttpResponseBadRequest("Failed")
         return HttpResponse("OK")
