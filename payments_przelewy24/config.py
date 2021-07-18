@@ -38,6 +38,7 @@ class Przelewy24Config:
         self.crc = crc
         self.api_key = api_key
         base_url = SANDBOX_URL if sandbox else PRODUCTION_URL
+        print(base_url, sandbox)
         self.endpoints = Endpoints(
             testConnection=f"{base_url}{P24_TEST_CONNECTION}",
             transactionRequest=f"{base_url}{P24_TRANSACTION_REQUEST}",
@@ -57,5 +58,5 @@ class Przelewy24Config:
             merchant_id=int(os.getenv(f"{prefix}P24_MERCHANT_ID", 0)),
             crc=os.getenv(f"{prefix}P24_CRC", "provide P24 CRC"),
             api_key=os.getenv(f"{prefix}P24_API_KEY", "provide P24 API KEY"),
-            sandbox=bool(int(os.getenv(f"{prefix}P24_SANDBOX", "1")) != "0"),
+            sandbox=bool(int(os.getenv(f"{prefix}P24_SANDBOX", "1")) != 0),
         )
