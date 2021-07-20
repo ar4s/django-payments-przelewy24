@@ -41,9 +41,11 @@ class Przelewy24Config:
         self.crc = crc
         self.api_key = api_key
         base_url = SANDBOX_URL if sandbox else PRODUCTION_URL
+
         logger.info(
             f"Przelewy24 provider configured: base_url={base_url} pos_id={pos_id} merchant_id={merchant_id} crc={crc} api_key={api_key}"
         )
+
         self.endpoints = Endpoints(
             testConnection=f"{base_url}{P24_TEST_CONNECTION}",
             transactionRequest=f"{base_url}{P24_TRANSACTION_REQUEST}",
