@@ -82,7 +82,7 @@ class Przelewy24Provider(BasicProvider):
                 form.save()
                 payment.change_status(PaymentStatus.CONFIRMED)
             else:
-                error_str = ", ".join([f"{k}: {v}" for k, v in f.errors.items()])
+                error_str = ", ".join([f"{k}: {v}" for k, v in form.errors.items()])
                 logger.error(error_str)
                 return HttpResponseBadRequest("Failed - incorrect data")
         except Exception as e:
