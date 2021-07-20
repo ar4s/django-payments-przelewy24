@@ -1,12 +1,20 @@
 from decimal import Decimal
 
+from django import forms
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect
 from django.template.response import TemplateResponse
 from payments import RedirectNeeded, get_payment_model
 
 
+class FormA(forms.Form):
+    a = forms.CharField(max_length=1, required=True)
+    b = forms.CharField(max_length=1, required=True)
+
+
 def index(request):
+    f = FormA(data={"a": "sssssss", "b": "2222"})
+    f.is_valid()
     return HttpResponse('<a href="/payment_create">Create payment</a>')
 
 

@@ -131,7 +131,7 @@ LOGGING = {
             "level": "WARNING",
             "propagate": False,
         },
-        "przelewy24": {
+        "payments_przelewy24": {
             "handlers": ["console"],
             "level": "DEBUG",
             "propagate": False,
