@@ -14,8 +14,8 @@ def payment_create(request):
     Payment = get_payment_model()
     payment = Payment.objects.create(
         variant="przelewy24",  # this is the variant from PAYMENT_VARIANTS
-        description="Book purchase",
-        total=Decimal(120.24),
+        description="Test purchase",
+        total=Decimal(1),
         tax=Decimal(20),
         currency="PLN",
         delivery=Decimal(10),
