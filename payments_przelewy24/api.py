@@ -103,7 +103,7 @@ class Przelewy24API:
             method=method,
             url=endpoint,
             json=data,
-            auth=(str(self._config.pos_id), self._config.api_key),
+            auth=(str(self._config.pos_id), str(self._config.api_key)),
         )
         logger.debug(
             "%s %s: status_code=%s content=%s",

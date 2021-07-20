@@ -69,6 +69,7 @@ class Przelewy24Provider(BasicProvider):
         return requests.post(self.endpoint, data=post)
 
     def process_data(self, payment, request):
+        logging.info("Process Przelewy24's notification: body={request.body}")
         try:
             data = json.loads(request.body.decode("utf-8"))
             form = ProcessForm(payment=payment, config=self._config, data=data)
@@ -81,9 +82,10 @@ class Przelewy24Provider(BasicProvider):
                 form.save()
                 payment.change_status(PaymentStatus.CONFIRMED)
             else:
-                logger.error("\n".join(*form.errors.values()))
+                error_str = ", ".join([f"{k}: {v}" for k, v in form.errors.items()])
+                logger.error(error_str)
                 return HttpResponseBadRequest("Failed - incorrect data")
         except Exception as e:
-            logger.error(str(e))
+            logger.error(f"{str(e)}, {request.body.decode('utf-8')}")
             return HttpResponseBadRequest("Failed")
         return HttpResponse("OK")
