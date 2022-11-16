@@ -31,6 +31,7 @@ def test_register_should_pass(
     )
 
 
+@pytest.mark.django_db()
 def test_process_form(correct_process_data, payment, config: Przelewy24Config):
     form = ProcessForm(payment=payment, config=config, data=correct_process_data)
     assert form.is_valid()
