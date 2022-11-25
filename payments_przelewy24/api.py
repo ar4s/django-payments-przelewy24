@@ -158,3 +158,6 @@ class Przelewy24API:
         payload = asdict(verify)
         response = self._do("PUT", self._config.endpoints.transactionVerify, payload)
         return response["data"]["status"] == "success"
+
+    def get_by_session_id(self, *, session_id: str) -> dict:
+        return self._do("GET", self._config.endpoints.transactionGetBySessionId + session_id)
