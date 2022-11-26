@@ -12,6 +12,7 @@ P24_TEST_CONNECTION: str = "api/v1/testAccess"
 P24_TRANSACTION_REQUEST: str = "trnRequest"
 P24_TRANSACTION_REGISTER: str = "api/v1/transaction/register"
 P24_TRANSACTION_VERIFY: str = "api/v1/transaction/verify"
+P24_TRANSACTION_GET_BY_SESSION_ID: str = "/api/v1/transaction/by/sessionId/"
 
 logger = logging.getLogger(__name__)
 
@@ -22,6 +23,7 @@ class Endpoints:
     transactionRequest: str
     transactionRegister: str
     transactionVerify: str
+    transactionGetBySessionId: str
 
 
 @dataclass(init=False)
@@ -51,6 +53,7 @@ class Przelewy24Config:
             transactionRequest=f"{base_url}{P24_TRANSACTION_REQUEST}",
             transactionRegister=f"{base_url}{P24_TRANSACTION_REGISTER}",
             transactionVerify=f"{base_url}{P24_TRANSACTION_VERIFY}",
+            transactionGetBySessionId=f"{base_url}{P24_TRANSACTION_GET_BY_SESSION_ID}",
         )
 
     def generate_sign(self, **kwargs) -> str:
